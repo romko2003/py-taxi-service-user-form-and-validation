@@ -52,7 +52,8 @@ urlpatterns = [
     path("drivers/<int:pk>/delete/",
          views.DriverDeleteView.as_view(), name="driver-delete"),
     path("drivers/<int:pk>/update-license/",
-         views.DriverLicenseUpdateView.as_view(), name="driver-license-update"),
+         views.DriverLicenseUpdateView.as_view(),
+         name="driver-license-update"),
     path("cars/create/", views.CarCreateView.as_view(), name="car-create"),
     path("cars/<int:pk>/", views.CarDetailView.as_view(), name="car-detail"),
 ]
