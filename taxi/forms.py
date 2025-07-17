@@ -3,16 +3,26 @@ from django.core.exceptions import ValidationError
 import re
 from .models import Driver, Car
 
+
 class DriverForm(forms.ModelForm):
     class Meta:
         model = Driver
-        fields = ("username", "first_name", "last_name", "license_number", "password")
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "license_number",
+            "password"
+        )
 
     def clean_license_number(self):
-        license = self.cleaned_data["license_number"]
-        if not re.fullmatch(r"[A-Z]{3}\d{5}", license):
-            raise ValidationError("License must have 3 uppercase letters followed by 5 digits.")
-        return license
+        license_number = self.cleaned_data["license_number"]
+        if not re.fullmatch(r"[A-Z]{3}\d{5}", license_number):
+            raise ValidationError(
+                "License must have 3 uppercase letters followed by 5 digits."
+            )
+        return license_number
+
 
 class DriverLicenseUpdateForm(forms.ModelForm):
     class Meta:
@@ -20,10 +30,10 @@ class DriverLicenseUpdateForm(forms.ModelForm):
         fields = ("license_number",)
 
     def clean_license_number(self):
-        license = self.cleaned_data["license_number"]
-        if not re.fullmatch(r"[A-Z]{3}\d{5}", license):
+        license_number = self.cleaned_data["license_number"]
+        if not re.fullmatch(r"[A-Z]{3}\d{5}", license_number):
             raise ValidationError("Invalid format for license number.")
-        return license
+        return license_number
 
 
 class CarForm(forms.ModelForm):

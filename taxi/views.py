@@ -108,23 +108,3 @@ class DriverLicenseUpdateView(generic.UpdateView):
     form_class = DriverLicenseUpdateForm
     template_name = "taxi/driver_license_form.html"
     success_url = reverse_lazy("taxi:driver-list")
-
-
-class CarCreateView(generic.CreateView):
-    model = Car
-    form_class = CarForm
-    template_name = "taxi/car_form.html"
-    success_url = reverse_lazy("taxi:car-list")
-
-
-class CarDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Car
-    template_name = "taxi/car_detail.html"
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if "assign" in request.POST:
-            self.object.drivers.add(request.user)
-        elif "remove" in request.POST:
-            self.object.drivers.remove(request.user)
-        return redirect("taxi:car-detail", pk=self.object.pk)
