@@ -90,20 +90,20 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Driver.objects.all().prefetch_related("cars__manufacturer")
 
 
-class DriverCreateView(generic.CreateView):
+class DriverCreateView(LoginRequiredMixin, generic.CreateView):
     model = Driver
     form_class = DriverForm
     template_name = "taxi/driver_form.html"
     success_url = reverse_lazy("taxi:driver-list")
 
 
-class DriverDeleteView(generic.DeleteView):
+class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Driver
     template_name = "taxi/driver_confirm_delete.html"
     success_url = reverse_lazy("taxi:driver-list")
 
 
-class DriverLicenseUpdateView(generic.UpdateView):
+class DriverLicenseUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Driver
     form_class = DriverLicenseUpdateForm
     template_name = "taxi/driver_license_form.html"
